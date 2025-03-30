@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Transaction } from "@/utils/types";
 import { fetchExchangeRate } from "@/utils/api";
 import { format, startOfMonth } from "date-fns";
+import { saveTransactions, loadTransactions } from "@/utils/localStorage";
 
 interface CurrencyConverterProps {
   selectedMonth: Date;
@@ -17,6 +18,15 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [defaultDate, setDefaultDate] = useState<Date>(new Date());
+  
+  // Load transactions from localStorage on component mount
+  useEffect(() => {
+    const storedTransactions = loadTransactions();
+    if (storedTransactions.length > 0) {
+      setTransactions(storedTransactions);
+      toast.info(`Loaded ${storedTransactions.length} saved transactions`);
+    }
+  }, []);
   
   // Update the default date when the selected month changes
   useEffect(() => {
@@ -42,7 +52,11 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) 
         gelAmount,
       };
       
-      setTransactions((prev) => [...prev, updatedTransaction]);
+      const updatedTransactions = [...transactions, updatedTransaction];
+      setTransactions(updatedTransactions);
+      
+      // Save to localStorage
+      saveTransactions(updatedTransactions);
       
       toast.success("Transaction added successfully");
     } catch (error) {
@@ -54,7 +68,12 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) 
   };
   
   const removeTransaction = (id: string) => {
-    setTransactions((prev) => prev.filter((t) => t.id !== id));
+    const updatedTransactions = transactions.filter((t) => t.id !== id);
+    setTransactions(updatedTransactions);
+    
+    // Save to localStorage
+    saveTransactions(updatedTransactions);
+    
     toast.info("Transaction removed");
   };
   
