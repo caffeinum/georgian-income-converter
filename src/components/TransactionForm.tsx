@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -23,13 +23,22 @@ import { v4 as uuidv4 } from "uuid";
 
 interface TransactionFormProps {
   onAddTransaction: (transaction: Transaction) => void;
+  defaultDate?: Date;
 }
 
-const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
-  const [date, setDate] = useState<Date>(new Date());
+const TransactionForm: React.FC<TransactionFormProps> = ({ 
+  onAddTransaction,
+  defaultDate = new Date()
+}) => {
+  const [date, setDate] = useState<Date>(defaultDate);
   const [amount, setAmount] = useState<string>("");
   const [currency, setCurrency] = useState<Currency>("USD");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  
+  // Update the date when the defaultDate prop changes
+  useEffect(() => {
+    setDate(defaultDate);
+  }, [defaultDate]);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,5 +1,5 @@
 
-import { format, parse } from "date-fns";
+import { format, parse, startOfMonth, endOfMonth } from "date-fns";
 
 export const formatDateForDisplay = (date: Date): string => {
   return format(date, "dd/MM/yyyy");
@@ -30,4 +30,12 @@ export const isDateInCurrentMonth = (date: Date): boolean => {
 export const isDateInSelectedMonth = (date: Date, selectedMonth: Date): boolean => {
   return date.getMonth() === selectedMonth.getMonth() && 
          date.getFullYear() === selectedMonth.getFullYear();
+};
+
+export const getFirstDayOfMonth = (date: Date): Date => {
+  return startOfMonth(date);
+};
+
+export const getLastDayOfMonth = (date: Date): Date => {
+  return endOfMonth(date);
 };

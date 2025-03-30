@@ -7,7 +7,7 @@ import TaxCalculator from "./TaxCalculator";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Transaction } from "@/utils/types";
 import { fetchExchangeRate } from "@/utils/api";
-import { format } from "date-fns";
+import { format, startOfMonth } from "date-fns";
 
 interface CurrencyConverterProps {
   selectedMonth: Date;
@@ -16,6 +16,14 @@ interface CurrencyConverterProps {
 const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [defaultDate, setDefaultDate] = useState<Date>(new Date());
+  
+  // Update the default date when the selected month changes
+  useEffect(() => {
+    // Set the default date to the first day of the selected month
+    const firstDayOfMonth = startOfMonth(selectedMonth);
+    setDefaultDate(firstDayOfMonth);
+  }, [selectedMonth]);
   
   const addTransaction = async (transaction: Transaction) => {
     setIsLoading(true);
@@ -60,7 +68,10 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) 
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <TransactionForm onAddTransaction={addTransaction} />
+          <TransactionForm 
+            onAddTransaction={addTransaction} 
+            defaultDate={defaultDate}
+          />
         </CardContent>
       </Card>
       

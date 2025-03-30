@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import CurrencyConverter from '@/components/CurrencyConverter';
+import Hero from '@/components/Hero';
 import { format, subMonths } from 'date-fns';
 import {
   Select,
@@ -9,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarIcon, ExternalLink } from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 
 const Index = () => {
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
@@ -43,6 +44,8 @@ const Index = () => {
 
       <main className="container mx-auto px-4 py-6 -mt-4">
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <Hero />
+          
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>
               <div className="flex items-center gap-3">
@@ -95,44 +98,6 @@ const Index = () => {
           <p className="mt-2 text-georgian-cream/80">
             Uses official exchange rates from the National Bank of Georgia
           </p>
-          <div className="mt-4 flex flex-col md:flex-row justify-center items-center gap-4">
-            <a 
-              href="https://mapi.ge/paypal-script" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-georgian-cream hover:text-white transition-colors"
-            >
-              <ExternalLink className="h-3 w-3 mr-1" />
-              PayPal Script
-            </a>
-            <a 
-              href="https://manageripgeorgia.atlassian.net/wiki/spaces/FAQ/pages/15269889" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-georgian-cream hover:text-white transition-colors"
-            >
-              <ExternalLink className="h-3 w-3 mr-1" />
-              Manager IP Georgia Wiki
-            </a>
-            <a 
-              href="https://pastebin.com/raw/Q2vZb0vh" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-georgian-cream hover:text-white transition-colors"
-            >
-              <ExternalLink className="h-3 w-3 mr-1" />
-              Original Google Script
-            </a>
-            <a 
-              href="https://x.com/caffeinum" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-georgian-cream hover:text-white transition-colors"
-            >
-              <ExternalLink className="h-3 w-3 mr-1" />
-              Made by Aleks Aeon
-            </a>
-          </div>
         </div>
       </footer>
     </div>
