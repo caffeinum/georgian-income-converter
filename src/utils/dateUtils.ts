@@ -26,3 +26,8 @@ export const isDateInCurrentMonth = (date: Date): boolean => {
   return date.getMonth() === now.getMonth() && 
          date.getFullYear() === now.getFullYear();
 };
+
+export const isDateInSelectedMonth = (date: Date, selectedMonth: Date): boolean => {
+  return date.getMonth() === selectedMonth.getMonth() && 
+         date.getFullYear() === selectedMonth.getFullYear();
+};

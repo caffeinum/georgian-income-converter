@@ -1,10 +1,34 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import CurrencyConverter from '@/components/CurrencyConverter';
-import { getCurrentMonth } from '@/utils/dateUtils';
+import { format, subMonths } from 'date-fns';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CalendarIcon, ExternalLink } from 'lucide-react';
 
 const Index = () => {
-  const currentMonth = getCurrentMonth();
+  const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
+  
+  // Generate the last 12 months for the selector
+  const generateMonthOptions = () => {
+    const options = [];
+    for (let i = 0; i < 12; i++) {
+      const date = subMonths(new Date(), i);
+      options.push({
+        value: format(date, 'yyyy-MM'),
+        label: format(date, 'MMMM yyyy')
+      });
+    }
+    return options;
+  };
+  
+  const monthOptions = generateMonthOptions();
+  const formattedSelectedMonth = format(selectedMonth, 'MMMM yyyy');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -21,9 +45,33 @@ const Index = () => {
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-semibold text-georgian-blue">
-                {currentMonth} Income
-              </h2>
+              <div className="flex items-center gap-3">
+                <h2 className="text-2xl font-semibold text-georgian-blue">
+                  Income
+                </h2>
+                <div className="w-48">
+                  <Select 
+                    value={format(selectedMonth, 'yyyy-MM')}
+                    onValueChange={(value) => {
+                      const [year, month] = value.split('-');
+                      const newDate = new Date(parseInt(year), parseInt(month) - 1);
+                      setSelectedMonth(newDate);
+                    }}
+                  >
+                    <SelectTrigger className="h-8 text-sm border-georgian-blue/30">
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      <SelectValue placeholder="Select month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {monthOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
               <p className="text-muted-foreground">
                 Track your foreign currency income and tax obligations
               </p>
@@ -35,7 +83,7 @@ const Index = () => {
             </div>
           </div>
 
-          <CurrencyConverter />
+          <CurrencyConverter selectedMonth={selectedMonth} />
         </div>
       </main>
 
@@ -47,6 +95,44 @@ const Index = () => {
           <p className="mt-2 text-georgian-cream/80">
             Uses official exchange rates from the National Bank of Georgia
           </p>
+          <div className="mt-4 flex flex-col md:flex-row justify-center items-center gap-4">
+            <a 
+              href="https://mapi.ge/paypal-script" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center text-georgian-cream hover:text-white transition-colors"
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              PayPal Script
+            </a>
+            <a 
+              href="https://manageripgeorgia.atlassian.net/wiki/spaces/FAQ/pages/15269889" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center text-georgian-cream hover:text-white transition-colors"
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Manager IP Georgia Wiki
+            </a>
+            <a 
+              href="https://pastebin.com/raw/Q2vZb0vh" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center text-georgian-cream hover:text-white transition-colors"
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Original Google Script
+            </a>
+            <a 
+              href="https://x.com/caffeinum" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center text-georgian-cream hover:text-white transition-colors"
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Made by Aleks Aeon
+            </a>
+          </div>
         </div>
       </footer>
     </div>

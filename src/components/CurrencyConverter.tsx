@@ -7,9 +7,13 @@ import TaxCalculator from "./TaxCalculator";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Transaction } from "@/utils/types";
 import { fetchExchangeRate } from "@/utils/api";
-import { getCurrentMonth } from "@/utils/dateUtils";
+import { format } from "date-fns";
 
-const CurrencyConverter: React.FC = () => {
+interface CurrencyConverterProps {
+  selectedMonth: Date;
+}
+
+const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ selectedMonth }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
@@ -60,11 +64,15 @@ const CurrencyConverter: React.FC = () => {
         </CardContent>
       </Card>
       
-      <TaxCalculator transactions={transactions} />
+      <TaxCalculator 
+        transactions={transactions} 
+        selectedMonth={selectedMonth}
+      />
       
       <TransactionList
         transactions={transactions}
         onRemoveTransaction={removeTransaction}
+        selectedMonth={selectedMonth}
       />
     </div>
   );

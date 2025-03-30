@@ -2,31 +2,33 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Transaction } from "@/utils/types";
-import { isDateInCurrentMonth } from "@/utils/dateUtils";
+import { isDateInSelectedMonth } from "@/utils/dateUtils";
 import { calculateTax } from "@/utils/api";
 import { DollarSign, Euro } from "lucide-react";
+import { format } from "date-fns";
 
 interface TaxCalculatorProps {
   transactions: Transaction[];
+  selectedMonth: Date;
 }
 
-const TaxCalculator: React.FC<TaxCalculatorProps> = ({ transactions }) => {
-  // Filter transactions for current month only
-  const currentMonthTransactions = transactions.filter(
-    (t) => t.gelAmount && isDateInCurrentMonth(t.date)
+const TaxCalculator: React.FC<TaxCalculatorProps> = ({ transactions, selectedMonth }) => {
+  // Filter transactions for selected month only
+  const selectedMonthTransactions = transactions.filter(
+    (t) => t.gelAmount && isDateInSelectedMonth(t.date, selectedMonth)
   );
   
   // Calculate totals
-  const totalGEL = currentMonthTransactions.reduce(
+  const totalGEL = selectedMonthTransactions.reduce(
     (sum, t) => sum + (t.gelAmount || 0),
     0
   );
   
-  const totalUSD = currentMonthTransactions
+  const totalUSD = selectedMonthTransactions
     .filter((t) => t.currency === "USD")
     .reduce((sum, t) => sum + t.amount, 0);
   
-  const totalEUR = currentMonthTransactions
+  const totalEUR = selectedMonthTransactions
     .filter((t) => t.currency === "EUR")
     .reduce((sum, t) => sum + t.amount, 0);
   
@@ -46,7 +48,7 @@ const TaxCalculator: React.FC<TaxCalculatorProps> = ({ transactions }) => {
         <CardContent>
           <div className="text-2xl font-bold">{totalGEL.toFixed(2)} ₾</div>
           <p className="text-xs text-muted-foreground mt-1">
-            Current month's converted income
+            {format(selectedMonth, "MMMM yyyy")}'s converted income
           </p>
         </CardContent>
       </Card>
@@ -59,7 +61,7 @@ const TaxCalculator: React.FC<TaxCalculatorProps> = ({ transactions }) => {
         <CardContent>
           <div className="text-2xl font-bold">${totalUSD.toFixed(2)}</div>
           <p className="text-xs text-muted-foreground mt-1">
-            USD income this month
+            USD income in {format(selectedMonth, "MMMM yyyy")}
           </p>
         </CardContent>
       </Card>
@@ -72,7 +74,7 @@ const TaxCalculator: React.FC<TaxCalculatorProps> = ({ transactions }) => {
         <CardContent>
           <div className="text-2xl font-bold">€{totalEUR.toFixed(2)}</div>
           <p className="text-xs text-muted-foreground mt-1">
-            EUR income this month
+            EUR income in {format(selectedMonth, "MMMM yyyy")}
           </p>
         </CardContent>
       </Card>
