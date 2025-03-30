@@ -49,6 +49,15 @@ const Hero: React.FC = () => {
               Original Google Script
             </a>
             <a 
+              href="https://github.com/caffeinum/georgian-income-converter" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center text-georgian-blue hover:text-georgian-red transition-colors"
+            >
+              <ExternalLink className="h-4 w-4 mr-1" />
+              GitHub Repository
+            </a>
+            <a 
               href="https://x.com/caffeinum" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -58,6 +67,16 @@ const Hero: React.FC = () => {
               Made by Aleks Aeon
             </a>
           </div>
+        </div>
+        
+        <div className="mt-4 bg-red-50 p-4 rounded-lg border border-georgian-red/30">
+          <h3 className="font-semibold text-georgian-red">Disclaimer:</h3>
+          <p className="mt-1 text-sm">
+            This tool is provided for informational purposes only. While we strive for accuracy, 
+            please verify all calculations yourself before filing any tax documents. We carry no 
+            responsibility for any errors or discrepancies that may occur. Always consult with a 
+            tax professional for official guidance.
+          </p>
         </div>
       </div>
     </div>
