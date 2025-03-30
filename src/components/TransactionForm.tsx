@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Transaction, Currency } from "@/utils/types";
 import { v4 as uuidv4 } from "uuid";
@@ -133,7 +133,14 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         className="w-full sm:w-auto bg-georgian-red hover:bg-georgian-red/90 transition-colors"
         disabled={isSubmitting}
       >
-        Add Transaction
+        {isSubmitting ? (
+          <span className="flex items-center">
+            <Loader className="mr-2 h-4 w-4 animate-spin" />
+            Processing...
+          </span>
+        ) : (
+          "Add Transaction"
+        )}
       </Button>
     </form>
   );
