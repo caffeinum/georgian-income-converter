@@ -1,58 +1,27 @@
-# Welcome to your Lovable project
+# Georgian Income Converter
 
-## Project info
+A specialized tool for entrepreneurs and small business owners in Georgia to convert foreign currency income to Georgian Lari (GEL) and calculate tax obligations.
 
-**URL**: https://lovable.dev/projects/d3277cc8-0c0d-4c00-a8bf-1f3f3013f68d
+**Live Demo**: [https://georgian-income-converter.lovable.app/](https://georgian-income-converter.lovable.app/)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Convert income from multiple currencies to GEL using official National Bank of Georgia exchange rates
+- Add and track transactions with specific dates and descriptions
+- Calculate monthly tax obligations for small business status
+- View and manage transaction history
+- Select different months to track income over time
 
-**Use Lovable**
+## Why Use This Tool?
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d3277cc8-0c0d-4c00-a8bf-1f3f3013f68d) and start prompting.
+If you're running a small business in Georgia and receiving income in foreign currencies, you need to:
+1. Convert your income to GEL using the official NBG exchange rate of the transaction date
+2. Calculate and pay taxes based on the GEL amount
+3. Keep track of your monthly income totals for tax reporting
 
-Changes made via Lovable will be committed automatically to this repo.
+This tool automates this entire process, helping you save time and ensure compliance with Georgian tax regulations.
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
+## Technologies Used
 
 - Vite
 - TypeScript
@@ -60,10 +29,39 @@ This project is built with .
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Development
 
-Simply open [Lovable](https://lovable.dev/projects/d3277cc8-0c0d-4c00-a8bf-1f3f3013f68d) and click on Share -> Publish.
+### Project Setup
 
-## I want to use a custom domain - is that possible?
+```sh
+# Clone the repository
+git clone <YOUR_GIT_URL>
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+# Navigate to the project directory
+cd georgian-income-converter
+
+# Install dependencies
+npm i
+
+# Start the development server
+npm run dev
+```
+
+### Commands
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
+
+## Deployment
+
+This project is deployed using Lovable. Visit [https://georgian-income-converter.lovable.app/](https://georgian-income-converter.lovable.app/) to see the live version.
+
+## Contributing
+
+Feel free to submit issues or pull requests to help improve the project.
+
+## Disclaimer
+
+While this tool uses official exchange rates from the National Bank of Georgia, it should not be considered as financial or tax advice. Always consult with a professional accountant or tax advisor for your specific situation.
